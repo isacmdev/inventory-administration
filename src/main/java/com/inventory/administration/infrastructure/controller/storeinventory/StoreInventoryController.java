@@ -36,19 +36,12 @@ public class StoreInventoryController {
          return  ResponseEntity.ok(StoreWithProductsMapperDto.toResponse(domain));
     }
 
-//    @PatchMapping("/decrementStock")
-//    public ResponseEntity<StoreWithProductsResponseDto> updateStock(
-//            @RequestParam Long storeId,
-//            @RequestParam String sku,
-//            @RequestParam Integer quantityRemove
-//    ) {
-//        StoreWithProducts  updatedStore = storeInventoryInterfacePortIn.decrementStock(storeId, sku, quantityRemove);
-//
-//        return  ResponseEntity.ok(StoreWithProductsMapperDto.toResponse(updatedStore));
-//    }
-
     @PatchMapping("/decrementStock")
-    public ResponseEntity<String> test() {
-        return ResponseEntity.ok("Funciona");
+    public ResponseEntity<StoreWithProductsResponseDto> updateStock(
+            @RequestBody StoreInventoryRequestDto requestDto
+    ) {
+        StoreWithProducts  updatedStore = storeInventoryInterfacePortIn.decrementStock(requestDto.getStoreId(), requestDto.getSku(), requestDto.getStock());
+
+        return  ResponseEntity.ok(StoreWithProductsMapperDto.toResponse(updatedStore));
     }
 }
