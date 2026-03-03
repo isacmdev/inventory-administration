@@ -24,10 +24,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         // PUBLIC
-                        .requestMatchers(HttpMethod.POST, "/store-inventory").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/store-inventory/**").permitAll()
 
                         // PROTEGIDO
-                        .requestMatchers(HttpMethod.GET, "/store-inventory/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/store-inventory/details").authenticated()
 
                         .anyRequest().permitAll()
                 )
