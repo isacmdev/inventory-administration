@@ -36,4 +36,14 @@ public class StoreInventoryController {
          return  ResponseEntity.ok(StoreWithProductsMapperDto.toResponse(domain));
     }
 
+    @PatchMapping("/decrementStock")
+    public ResponseEntity<StoreWithProductsResponseDto> updateStock(
+            @RequestParam Long storeId,
+            @RequestParam String sku,
+            @RequestParam Integer quantityRemove
+    ) {
+        StoreWithProducts  updatedStore = storeInventoryInterfacePortIn.decrementStock(storeId, sku, quantityRemove);
+
+        return  ResponseEntity.ok(StoreWithProductsMapperDto.toResponse(updatedStore));
+    }
 }

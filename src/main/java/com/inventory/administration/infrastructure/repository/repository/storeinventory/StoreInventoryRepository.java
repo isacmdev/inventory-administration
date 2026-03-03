@@ -44,4 +44,18 @@ public class StoreInventoryRepository implements StoreInventoryInterfacePortOut 
                 .map(StoreInventoryEntityMapper::toDomain);
     }
 
+    @Override
+    public void decrementStock(Long storeId, String sku, int quantity) {
+        StoreInventoryData data = storeInventoryJpaRepository
+                .findByStoreIdAndSkuForUpdate(storeId, sku)
+                .orElseThrow(() -> new RuntimeException("Store inventory not found for store " + storeId + " and SKU " + sku));
+
+        if (data.getStock() < quantity) {
+            throw new RuntimeException("Insufficient stock in store for SKU " + sku);
+        }
+
+        data.setStock(data.getStock() - quantity);
+        StoreInventoryData saved = storeInventoryJpaRepository.save(data);
+        StoreInventoryEntityMapper.toDomain(saved);
+    }
 }

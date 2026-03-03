@@ -13,4 +13,5 @@ public interface InventoryInterfacePortOut {
     void deleteById(Long id);
     List<Inventory> findAllBySkuIn(List<String> skus);
     Optional<Inventory> findBySkuForUpdate(String sku);
+
 }

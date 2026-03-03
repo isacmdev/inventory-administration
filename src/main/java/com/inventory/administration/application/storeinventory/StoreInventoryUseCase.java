@@ -36,7 +36,6 @@ public class StoreInventoryUseCase implements StoreInventoryInterfacePortIn {
 
     @Override
     @Transactional
-
     public StoreInventory assignStock(StoreInventory storeInventory) {
 
         Inventory globalInventory = inventoryInterfacePortOut.findBySkuForUpdate(storeInventory.getSku())
@@ -70,6 +69,13 @@ public class StoreInventoryUseCase implements StoreInventoryInterfacePortIn {
     @Override
     public StoreWithProducts getStoreWithProducts() {
         Long storeId = currentStoreProvider.getCurrentStoreId();
+        return getStoreWithProducts(storeId);
+    }
+
+    @Override
+    @Transactional
+    public StoreWithProducts decrementStock(Long storeId, String sku, int quantity) {
+        storeInventoryInterfacePortOut.decrementStock(storeId, sku, quantity);
         return getStoreWithProducts(storeId);
     }
 

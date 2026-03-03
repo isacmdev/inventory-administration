@@ -9,4 +9,5 @@ public interface StoreInventoryInterfacePortOut {
     StoreInventory save(StoreInventory storeInventory);
     List<StoreInventory> findAllByStoreId(Long storeId);
     Optional<StoreInventory> findByStoreIdAndSku(Long storeId, String sku);
+    void decrementStock(Long storeId, String sku, int quantity);
 }
