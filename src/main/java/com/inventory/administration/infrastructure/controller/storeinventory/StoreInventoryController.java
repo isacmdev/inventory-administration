@@ -4,6 +4,7 @@ import com.inventory.administration.domain.entity.model.StoreWithProducts;
 import com.inventory.administration.domain.entity.storeinventory.StoreInventory;
 import com.inventory.administration.domain.ports.storeinventory.StoreInventoryInterfacePortIn;
 
+import com.inventory.administration.infrastructure.dto.storeinventory.storeinventory.DecrementStockRequestDto;
 import com.inventory.administration.infrastructure.dto.storeinventory.storeinventory.StoreInventoryRequestDto;
 import com.inventory.administration.infrastructure.dto.storeinventory.storeinventory.StoreInventoryResponseDto;
 import com.inventory.administration.infrastructure.dto.storeinventory.storeproductdetails.StoreWithProductsResponseDto;
@@ -38,9 +39,9 @@ public class StoreInventoryController {
 
     @PatchMapping("/decrementStock")
     public ResponseEntity<StoreWithProductsResponseDto> updateStock(
-            @RequestBody StoreInventoryRequestDto requestDto
+            @RequestBody DecrementStockRequestDto requestDto
     ) {
-        StoreWithProducts  updatedStore = storeInventoryInterfacePortIn.decrementStock(requestDto.getStoreId(), requestDto.getSku(), requestDto.getStock());
+        StoreWithProducts  updatedStore = storeInventoryInterfacePortIn.decrementStock(requestDto.getStoreId(), requestDto.getSku(), requestDto.getQuantityRemove());
 
         return  ResponseEntity.ok(StoreWithProductsMapperDto.toResponse(updatedStore));
     }
